@@ -1,7 +1,9 @@
 import * as express from 'express'
 import {Application} from 'express-serve-static-core'
 import * as bp from 'body-parser'
-const db = require('/db/models.js');
+import db = require('./db/models');
+
+// console.log(db.models);
 
 const app: Application = express();
 

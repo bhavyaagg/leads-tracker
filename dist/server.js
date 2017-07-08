@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var db = require('./../db/models.js');
+var db = require("./db/models");
+console.log(db);
 var app = express();
 app.listen(4000, function (req, res, next) {
     console.log('Server Listening at 4000');
