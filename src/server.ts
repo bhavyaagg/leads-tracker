@@ -3,7 +3,7 @@ import {Application} from 'express-serve-static-core'
 import * as bp from 'body-parser'
 import db = require('./db/models');
 
-console.log(db.models);
+console.log(db);
 
 const app: Application = express();
 
