@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var db = require("./db/models");
-console.log(db);
+console.log(db.models);
 var app = express();
 app.listen(4000, function (req, res, next) {
     console.log('Server Listening at 4000');
