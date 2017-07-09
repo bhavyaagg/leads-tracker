@@ -4,10 +4,11 @@ const models = require('./../db/models').models;
 // get all the users
 router.get('/', function (req, res) {
   models.User.findAll().then(function (users) {
-    if (users)
+    if (users) {
       return res.send({success: true, data: users})
-    else
+    } else {
       return res.send({success: false, message: "No users are present"})
+    }
   }).catch(function (err) {
     console.log(err);
     return res.send({success: false, message: "Could not get all the users"})
@@ -50,7 +51,7 @@ router.post('/add', function () {
 });
 
 //edit details of the user
-router.put('/edit/:id', function () {
+router.put('/:id', function () {
   models.User.update({
     name: req.body.name,
     email: req.body.email,
@@ -73,8 +74,7 @@ router.put('/edit/:id', function () {
 });
 
 // delete any user
-router.delete('/delete/:id', function () {
-
+router.delete('/:id', function () {
   models.Tutor.destroy({
     where: {id: parseInt(req.params.id)},
     returning: true

@@ -4,8 +4,8 @@
     "target": "es5",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "src",
-    "declaration": true
+    "outDir": "dist",
+    "allowJs": true
   },
   "include": [
     "src"
