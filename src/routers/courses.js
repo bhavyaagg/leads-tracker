@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const models = require('/src/db/models.js').models;
+const models = require('./../db/models').models;
 
 // get all the courses
 router.get('/', function (req, res) {

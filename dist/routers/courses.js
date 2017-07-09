@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var models = require('/src/db/models.js').models;
+var models = require('./../db/models').models;
 // get all the courses
 router.get('/', function (req, res) {
 });
