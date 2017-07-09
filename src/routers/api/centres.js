@@ -1,15 +1,16 @@
 const router = require('express').Router();
-const models = require('./../db/models').models;
+const models = require('../../db/models').models;
 
 // get all the centers
 router.get('/', function (req, res) {
   models.Centre.findAll().then(function (centres) {
-    if (centres) {
-      res.status(200).send(centres.map((centre) => centre.get()));
+    if (centres.length !== 0) {
+      res.status(200).send({success: true, data: centres.map((centre) => centre.get())});
     } else {
       res.status(404).send({
-        code: "404",
-        error: {
+        success: false
+        , code: "404"
+        , error: {
           message: "There are no centres."
         }
       })
@@ -17,8 +18,9 @@ router.get('/', function (req, res) {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: "Could not get all the centres(Internal Server Error)."
       }
     })
@@ -26,18 +28,19 @@ router.get('/', function (req, res) {
 });
 
 //add any center
-router.post('/add', function () {
+router.post('/add', function (req, res) {
   const centreData = req.body.centreData || {
       name: req.body.name
     };
 
   models.Centre.create(centreData).then(function (centre) {
     if (centre) {
-      res.status(201).send(centre.get());
+      res.status(201).send({success: true, data: centre.get()});
     } else {
       res.status(400).send({
-        code: "400",
-        error: {
+        success: false
+        , code: "400"
+        , error: {
           message: "Could not add the centre(Incorrect Details)."
         }
       })
@@ -45,23 +48,25 @@ router.post('/add', function () {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: "Could not add the centre(Internal Server Error)."
       }
     })
   })
 });
 
-router.get('/:id', function () {
+router.get('/:id', function (req, res) {
   const centreId = +req.params.id;
   models.Centre.findByPrimary(centreId).then(function (centre) {
     if (centre) {
-      res.status(200).send(centre.get());
+      res.status(200).send({success: true, data: centre.get()});
     } else {
       res.status(404).send({
-        code: "404",
-        error: {
+        success: false
+        , code: "404"
+        , error: {
           message: `No Centre found for the id ${centreId}.`
         }
       })
@@ -69,8 +74,9 @@ router.get('/:id', function () {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: `Could not get the centre with id ${centreId} (Internal Server Error).`
       }
     })
@@ -78,17 +84,18 @@ router.get('/:id', function () {
 });
 
 // delete any center
-router.delete('/:id', function () {
+router.delete('/:id', function (req, res) {
   const centreId = +req.params.id;
   models.Centre.destroy({
     where: {id: centreId}
   }).then(function (noOfCentresDeleted) {
     if (noOfCentresDeleted !== 0) {
-      res.status(200).send({"success": true})
+      res.status(200).send({success: true})
     } else {
       res.status(404).send({
-        code: "404",
-        error: {
+        success: false
+        , code: "404"
+        , error: {
           message: `Could not delete the centre with id ${centreId} (Centre not found).`
         }
       })
@@ -96,8 +103,9 @@ router.delete('/:id', function () {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: `Could not delete the centre with id ${centreId} (Internal Server Error).`
       }
     })

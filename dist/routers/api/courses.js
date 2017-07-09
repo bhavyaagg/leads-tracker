@@ -1,13 +1,14 @@
 var router = require('express').Router();
-var models = require('./../db/models').models;
+var models = require('../../db/models').models;
 // get all the courses
 router.get('/', function (req, res) {
     models.Course.findAll().then(function (courses) {
-        if (courses) {
-            res.status(200).send(courses.map(function (course) { return course.get(); }));
+        if (courses.length !== 0) {
+            res.status(200).send({ success: true, data: courses.map(function (course) { return course.get(); }) });
         }
         else {
             res.status(404).send({
+                success: false,
                 code: "404",
                 error: {
                     message: "There are no courses."
@@ -17,6 +18,7 @@ router.get('/', function (req, res) {
     }).catch(function (err) {
         console.log(err);
         res.status(500).send({
+            success: false,
             code: "500",
             error: {
                 message: "Could not get all the courses(Internal Server Error)."
@@ -25,16 +27,17 @@ router.get('/', function (req, res) {
     });
 });
 //add any course
-router.post('/add', function () {
+router.post('/add', function (req, res) {
     var courseData = req.body.courseData || {
         name: req.body.name
     };
-    models.Course.create(centreData).then(function (course) {
+    models.Course.create(courseData).then(function (course) {
         if (course) {
-            res.status(201).send(course.get());
+            res.status(201).send({ success: true, data: course.get() });
         }
         else {
             res.status(400).send({
+                success: false,
                 code: "400",
                 error: {
                     message: "Could not add the course(Incorrect Details)."
@@ -44,6 +47,7 @@ router.post('/add', function () {
     }).catch(function (err) {
         console.log(err);
         res.status(500).send({
+            success: false,
             code: "500",
             error: {
                 message: "Could not add the course(Internal Server Error)."
@@ -51,53 +55,57 @@ router.post('/add', function () {
         });
     });
 });
-router.get('/:id', function () {
+router.get('/:id', function (req, res) {
     var courseId = +req.params.id;
     models.Course.findByPrimary(courseId).then(function (course) {
         if (course) {
-            res.status(200).send(course.get());
+            res.status(200).send({ success: true, data: course.get() });
         }
         else {
             res.status(404).send({
+                success: false,
                 code: "404",
                 error: {
-                    message: "No Centre found for the id " + courseId + "."
+                    message: "No Course found for the id " + courseId + "."
                 }
             });
         }
     }).catch(function (err) {
         console.log(err);
         res.status(500).send({
+            success: false,
             code: "500",
             error: {
-                message: "Could not get the centre with id " + courseId + " (Internal Server Error)."
+                message: "Could not get the course with id " + courseId + " (Internal Server Error)."
             }
         });
     });
 });
 // delete any course
-router.delete('/:id', function () {
+router.delete('/:id', function (req, res) {
     var courseId = +req.params.id;
-    models.Centre.destroy({
-        where: { id: centreId }
+    models.Course.destroy({
+        where: { id: courseId }
     }).then(function (noOfCoursesDeleted) {
         if (noOfCoursesDeleted !== 0) {
-            res.status(200).send({ "success": true });
+            res.status(200).send({ success: true });
         }
         else {
             res.status(404).send({
+                success: false,
                 code: "404",
                 error: {
-                    message: "Could not delete the centre with id " + courseId + " (Course not found)."
+                    message: "Could not delete the course with id " + courseId + " (Course not found)."
                 }
             });
         }
     }).catch(function (err) {
         console.log(err);
         res.status(500).send({
+            success: false,
             code: "500",
             error: {
-                message: "Could not delete the centre with id " + courseId + " (Internal Server Error)."
+                message: "Could not delete the course with id " + courseId + " (Internal Server Error)."
             }
         });
     });

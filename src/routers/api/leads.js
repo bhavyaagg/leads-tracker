@@ -1,14 +1,15 @@
 const router = require('express').Router();
-const models = require('./../db/models').models;
+const models = require('../../db/models').models;
 // get all the leads
 router.get('/', function (req, res) {
   models.Lead.findAll().then(function (leads) {
-    if (leads) {
-      res.status(200).send(leads.map((lead) => lead.get()));
+    if (leads.length !== 0) {
+      res.status(200).send({success: true, data: leads.map((lead) => lead.get())});
     } else {
       res.status(404).send({
-        code: "404",
-        error: {
+        success: false
+        , code: "404"
+        , error: {
           message: "There are no leads."
         }
       })
@@ -16,8 +17,9 @@ router.get('/', function (req, res) {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: "Could not get all the leads(Internal Server Error)."
       }
     })
@@ -25,15 +27,16 @@ router.get('/', function (req, res) {
 });
 
 // get details of a particular lead
-router.get('/:id', function () {
+router.get('/:id', function (req, res) {
   const leadId = +req.params.id;
   models.Lead.findByPrimary(leadId).then(function (lead) {
     if (lead) {
-      res.status(200).send(lead.get());
+      res.status(200).send({success: true, data: lead.get()});
     } else {
       res.status(404).send({
-        code: "404",
-        error: {
+        success: false
+        , code: "404"
+        , error: {
           message: `No lead found for the id ${leadId}.`
         }
       })
@@ -41,8 +44,9 @@ router.get('/:id', function () {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: `Could not get the lead with id ${leadId} (Internal Server Error).`
       }
     })
@@ -50,7 +54,7 @@ router.get('/:id', function () {
 });
 
 //add any lead
-router.post('/add', function () {
+router.post('/add', function (req, res) {
   const leadData = req.body.leadData || {
       name: req.body.name
       , email: req.body.email
@@ -78,11 +82,12 @@ router.post('/add', function () {
 
   models.Lead.create(leadData).then(function (lead) {
     if (lead) {
-      res.status(201).send(lead.get());
+      res.status(201).send({success: true, data: lead.get()});
     } else {
       res.status(400).send({
-        code: "400",
-        error: {
+        success: false
+        , code: "400"
+        , error: {
           message: "Could not add the lead(Incorrect Details)."
         }
       })
@@ -90,8 +95,9 @@ router.post('/add', function () {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: "Could not add the lead(Internal Server Error)."
       }
     })
@@ -99,7 +105,7 @@ router.post('/add', function () {
 });
 
 //edit details of the lead
-router.put('/:id', function () {
+router.put('/:id', function (req, res) {
   const leadId = +req.params.id;
   const leadData = req.body.leadData || {
       name: req.body.name
@@ -130,13 +136,14 @@ router.put('/:id', function () {
     where: {id: leadId},
     returning: true
   }).then(function (rows) {
-    const lead = rows[1];
+    const lead = rows[1][0];
     if (rows[0] !== 0 && lead) {
-      res.status(201).send(lead.get());
+      res.status(200).send({success: true, data: lead.get()});
     } else {
       res.status(404).send({
-        code: "404",
-        error: {
+        success: false
+        , code: "404"
+        , error: {
           message: `Could not update the lead with id ${leadId} (Lead not found).`
         }
       })
@@ -144,8 +151,9 @@ router.put('/:id', function () {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: `Could not update the lead with id ${leadId} (Internal Server Error).`
       }
     })
@@ -153,17 +161,18 @@ router.put('/:id', function () {
 });
 
 // delete any lead
-router.delete('/:id', function () {
+router.delete('/:id', function (req, res) {
   const leadId = +req.params.id;
   models.Lead.destroy({
     where: {id: leadId}
   }).then(function (noOfLeadsDeleted) {
     if (noOfLeadsDeleted !== 0) {
-      res.status(200).send({"success": true})
+      res.status(200).send({success: true})
     } else {
       res.status(404).send({
-        code: "404",
-        error: {
+        success: false
+        , code: "404"
+        , error: {
           message: `Could not delete the lead with id ${leadId} (Lead not found).`
         }
       })
@@ -171,8 +180,9 @@ router.delete('/:id', function () {
   }).catch(function (err) {
     console.log(err);
     res.status(500).send({
-      code: "500",
-      error: {
+      success: false
+      , code: "500"
+      , error: {
         message: `Could not delete the lead with id ${leadId} (Internal Server Error).`
       }
     })
