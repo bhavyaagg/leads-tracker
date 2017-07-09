@@ -46,7 +46,7 @@ router.post('/add', function () {
         res.status(500).send({
             code: "500",
             error: {
-                message: "Could not add the lead(Internal Server Error)."
+                message: "Could not add the centre(Internal Server Error)."
             }
         });
     });
@@ -61,7 +61,7 @@ router.get('/:id', function () {
             res.status(404).send({
                 code: "404",
                 error: {
-                    message: "No Centre found for the id " + leadId + "."
+                    message: "No Centre found for the id " + centreId + "."
                 }
             });
         }
@@ -70,7 +70,7 @@ router.get('/:id', function () {
         res.status(500).send({
             code: "500",
             error: {
-                message: "Could not get the centre with id " + leadId + " (Internal Server Error)."
+                message: "Could not get the centre with id " + centreId + " (Internal Server Error)."
             }
         });
     });
@@ -88,7 +88,7 @@ router.delete('/:id', function () {
             res.status(404).send({
                 code: "404",
                 error: {
-                    message: "Could not delete the centre with id " + leadId + " (Lead not found)."
+                    message: "Could not delete the centre with id " + centreId + " (Centre not found)."
                 }
             });
         }
@@ -97,7 +97,7 @@ router.delete('/:id', function () {
         res.status(500).send({
             code: "500",
             error: {
-                message: "Could not delete the centre with id " + leadId + " (Internal Server Error)."
+                message: "Could not delete the centre with id " + centreId + " (Internal Server Error)."
             }
         });
     });
