@@ -38,8 +38,8 @@ const Lead = db.define('lead', {
     , city: Sequelize.STRING
     , state: Sequelize.STRING
     , pincode: Sequelize.STRING
-    , coursesOfInterest: Sequelize.ARRAY(Sequelize.STRING)
-    , centresOfInterest: Sequelize.ARRAY(Sequelize.STRING)
+    , coursesOfInterest: Sequelize.ARRAY(Sequelize.INTEGER)
+    , centresOfInterest: Sequelize.ARRAY(Sequelize.INTEGER)
     // TODO: Ask sir about the next key
     , whoToldYouAboutUs: Sequelize.ARRAY(Sequelize.STRING)
     , VMCRollNumber: Sequelize.STRING
@@ -58,11 +58,27 @@ Comment.belongsTo(User);
 Lead.hasMany(Comment);
 User.hasMany(Comment);
 
+const Centre = db.define('centre', {
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true}
+    , name: Sequelize.STRING
+});
+
+const Course = db.define('course', {
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true}
+    , name: Sequelize.STRING
+});
+
 db.sync({force: false}).then(() => {
     console.log('Database configured')
 });
 
-const models = {};
+const models = {
+    User: User
+    , Lead: Lead
+    , Comment: Comment
+    , Centre: Centre
+    , Course: Course
+};
 
 export default {models: models};
 module.exports = {models: models};

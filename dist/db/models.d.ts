@@ -1,4 +1,10 @@
 declare const _default: {
-    models: {};
+    models: {
+        User: any;
+        Lead: any;
+        Comment: any;
+        Centre: any;
+        Course: any;
+    };
 };
 export default _default;
