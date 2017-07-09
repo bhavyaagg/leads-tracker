@@ -9,6 +9,6 @@ router.post('/add/:userId', function () {
 
 });
 // delete all comments of a lead
-router.delete('/delete/:leadId', function () {
+router.delete('/:leadId', function () {
 
-})
+});

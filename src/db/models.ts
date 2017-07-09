@@ -40,11 +40,17 @@ const Lead = db.define('lead', {
     , pincode: Sequelize.STRING
     , coursesOfInterest: Sequelize.ARRAY(Sequelize.INTEGER)
     , centresOfInterest: Sequelize.ARRAY(Sequelize.INTEGER)
-    // TODO: Ask sir about the next key
-    , whoToldYouAboutUs: Sequelize.ARRAY(Sequelize.STRING)
+    , referrer: Sequelize.ARRAY(Sequelize.STRING)
     , VMCRollNumber: Sequelize.STRING
     , CBRollNumber: Sequelize.STRING
-    , cbStudentReferral: Sequelize.STRING
+    , cbStudentReferral: Sequelize.JSON
+    /*
+     Expected Structure:
+     {
+     id: Sequelize.STRING
+     , name: Sequelize.STRING
+     }
+     */
     , status: Sequelize.STRING
 });
 
