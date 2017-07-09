@@ -8,7 +8,6 @@ router.get('/:leadId', function (req,res) {
 router.post('/add/:userId', function () {
 
 });
-
 // delete all comments of a lead
 router.delete('/delete/:leadId', function () {
 
