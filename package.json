@@ -2,8 +2,7 @@
   "name": "leads-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
-  "types": "dist/server.d.ts",
+  "main": "src/index.ts",
   "scripts": {
     "pretest": "tsc",
     "test": "node_modules/.bin/_mocha",
