@@ -68,9 +68,6 @@ var Course = db.define('course', {
     id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: Sequelize.STRING, allowNull: false }
 });
-db.sync({ force: false }).then(function () {
-    console.log('Database configured');
-});
 var models = {
     User: User,
     Lead: Lead,
@@ -78,6 +75,6 @@ var models = {
     Centre: Centre,
     Course: Course
 };
-exports.default = { models: models };
-module.exports = { models: models };
+exports.models = models;
+exports.default = db;
 //# sourceMappingURL=models.js.map
