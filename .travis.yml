@@ -17,4 +17,4 @@ before_script:
   - export DATABASE_URL='postgres://postgres@localhost:5432/travis_ci_test'
   - npm install -g codecov
 after_success:
-- codecov
+- codecov -f coverage/lcov.info
