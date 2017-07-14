@@ -16,5 +16,6 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - export DATABASE_URL='postgres://postgres@localhost:5432/travis_ci_test'
   - npm install -g codecov
+script: npm run cover  
 after_success:
 - codecov -f coverage/lcov.info
