@@ -18,4 +18,4 @@ before_script:
   - npm install -g codecov
 script: npm run cover  
 after_success:
-- codecov -f coverage/lcov.info
+- codecov
