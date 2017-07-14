@@ -4,3 +4,4 @@ node_modules/
 /coverage
 /dist/*
 !/dist/
+/.nyc_output
