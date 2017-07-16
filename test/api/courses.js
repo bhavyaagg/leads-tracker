@@ -37,3 +37,19 @@ it("GET /2 should fetch error", (done) => {
     done()
   })
 })
+
+it("DEL /1 should delete a course",(done)=>{
+  api.delete('/1').end((e,r) => {
+    r.body.success.should.equal(true)
+      done()
+  })
+})
+
+it("DEL /2 should fetch error",(done)=>{
+  api.delete('/2').end((e,r)=>{
+      r.statusCode.should.equal(404)
+      r.body.success.should.equal(false)
+      r.body.error.message.should.be.a('string')
+      done()
+  })
+})
