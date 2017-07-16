@@ -9,8 +9,7 @@ test:
     - export DATABASE_URL="postgres://ubuntu@localhost:5432/circle_test"
     - npm install -g typescript nyc mocha
   override:
-    - tsc
-    - nyc mocha
+    - npm run cover
     - cp -r coverage/* $CIRCLE_TEST_REPORTS
   post:
     - bash <(curl -s https://codecov.io/bash)
