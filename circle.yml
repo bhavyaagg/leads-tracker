@@ -7,6 +7,10 @@ dependencies:
 test:
   pre:
     - export DATABASE_URL="postgres://ubuntu@localhost:5432/circle_test"
+    - npm install -g typescript nyc mocha
+  override:
+    - tsc
+    - nyc mocha
+    - cp -r coverage/* $CIRCLE_TEST_REPORTS
   post:
-    - "node_modules/.bin/nyc node_modules/.bin/_mocha"
     - bash <(curl -s https://codecov.io/bash)
