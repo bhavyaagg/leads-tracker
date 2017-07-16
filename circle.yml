@@ -1,0 +1,23 @@
+machine:
+  node:
+    version: 8.1.4
+  environment:
+    CC_TEST_REPORTER_ID: 14438324c5082791ed55baa7ba814b56c2b872bf4f83462a0e6139989b324cc1
+    NODE_ENV: dev
+    DATABASE_URL: "postgres://ubuntu@localhost:5432/circle_test"
+dependencies:
+  override:
+    - yarn install --production=false
+  post:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > /tmp/cc-test-reporter
+    - chmod +x /tmp/cc-test-reporter
+test:
+  pre:
+    - yarn global add typescript nyc mocha
+    - /tmp/cc-test-reporter before-build
+  override:
+    - npm run cover
+    - cp -r coverage/* $CIRCLE_TEST_REPORTS
+  post:
+    - bash <(curl -s https://codecov.io/bash)
+    - /tmp/cc-test-reporter after-build
