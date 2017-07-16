@@ -1,5 +1,6 @@
 # CB CRM
 [![Build Status](https://travis-ci.org/coding-blocks/leads-tracker-backend.svg?branch=master)](https://travis-ci.org/coding-blocks/leads-tracker-backend)
+[![CircleCI](https://circleci.com/gh/coding-blocks/leads-tracker-backend.svg?style=shield)](https://circleci.com/gh/coding-blocks/leads-tracker-backend)
 [![codecov](https://codecov.io/gh/coding-blocks/leads-tracker-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/coding-blocks/leads-tracker-backend)
 
 
