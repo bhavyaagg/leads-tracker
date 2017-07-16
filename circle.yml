@@ -3,16 +3,17 @@ machine:
     version: 8.1.4
   environment:
     CC_TEST_REPORTER_ID: 14438324c5082791ed55baa7ba814b56c2b872bf4f83462a0e6139989b324cc1
+    NODE_ENV: dev
 dependencies:
   override:
-    - npm install --dev
+    - yarn install --production=false
   post:
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
 test:
   pre:
     - export DATABASE_URL="postgres://ubuntu@localhost:5432/circle_test"
-    - npm install -g typescript nyc mocha
+    - yarn global add typescript nyc mocha
     - cc-test-reporter before-build
   override:
     - npm run cover
