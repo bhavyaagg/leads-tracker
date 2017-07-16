@@ -47,7 +47,7 @@ it("GET / should fetch all users", (done) => {
     api.get('/').end((e,r) => {
         r.statusCode.should.equal(200)
         r.body.success.should.equal(true)
-        r.body.data.name.should.be.an('array')
+        r.body.data.should.be.an('array')
         r.body.data[0].name.should.equal('Arnav Gupta')
         done()
     })
