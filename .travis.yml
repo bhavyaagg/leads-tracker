@@ -1,6 +1,13 @@
+env:
+  - CXX=g++-4.8
 services:
   - postgresql
 addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
   postgresql: "9.4"
 language: node_js
 node_js:
@@ -9,5 +16,6 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
   - export DATABASE_URL='postgres://postgres@localhost:5432/travis_ci_test'
   - npm install -g codecov
+script: npm run cover  
 after_success:
 - codecov
