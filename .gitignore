@@ -1,2 +1,7 @@
 node_modules/
 .idea/
+/secrets.json
+/coverage
+/dist/*
+!/dist/
+/.nyc_output

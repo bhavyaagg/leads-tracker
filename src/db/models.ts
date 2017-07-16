@@ -74,10 +74,6 @@ const Course = db.define('course', {
     , name: {type: Sequelize.STRING, allowNull: false}
 });
 
-db.sync({force: false}).then(() => {
-    console.log('Database configured')
-});
-
 const models = {
     User: User
     , Lead: Lead
@@ -86,5 +82,5 @@ const models = {
     , Course: Course
 };
 
-export default {models: models};
-module.exports = {models: models};
+export default db;
+export { models }
