@@ -10,6 +10,15 @@ const mocha = require('mocha')
 chai.use(chaiHttp)
 const api = chai.request("http://localhost:8000/api/courses")
 
+it("GET / should fetch error", (done)=>{
+  api.get('/').end((e,r)=>{
+    r.statusCode.should.equal(404)
+    r.body.success.should.equal(false)
+    r.body.error.message.should.be.a('string')
+    done()
+  })
+})
+
 it("POST /add should add a course", (done) => {
   api.post('/add').send({
     name: 'Launchpad'
@@ -18,6 +27,14 @@ it("POST /add should add a course", (done) => {
     r.body.success.should.equal(true)
     done()
   })
+})
+
+it("GET / should fetch all courses",(done)=>{
+    api.get('/').end((e,r)=>{
+      r.body.success.should.equal(true)
+      r.body.data[0].name.should.equal('Launchpad')
+      done()
+    })
 })
 
 it("GET /1 should fetch Launchpad", (done) => {
@@ -38,7 +55,7 @@ it("GET /2 should fetch error", (done) => {
   })
 })
 
-it("DEL /1 should delete a course",(done)=>{
+it("DEL /1 should delete a course Launchpad",(done)=>{
   api.delete('/1').end((e,r) => {
     r.body.success.should.equal(true)
       done()
