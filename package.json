@@ -12,7 +12,9 @@
     "cover": "node_modules/.bin/nyc node_modules/.bin/_mocha"
   },
   "nyc": {
-    "extension": ["ts"],
+    "extension": [
+      "ts"
+    ],
     "reporter": [
       "lcov",
       "text-summary"
