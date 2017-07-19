@@ -8,7 +8,7 @@ router.get('/:leadId', function (req, res) {
     where: {leadId: leadId}
     , include: [models.User, models.Lead]
   }).then(function (comments) {
-    if (comments) {
+    if (comments.data) {
       res.status(200).send({success: true, data: comments.map((comment) => comment.get())})
     } else {
       res.status(404).send({
@@ -34,7 +34,7 @@ router.get('/:leadId', function (req, res) {
 //add a comment -- lead id will be there in the body
 router.post('/add', function (req, res) {
   const userId = req.body.userId;
-  const leadId = req.bodt.leadId;
+  const leadId = req.body.leadId;
 
   models.Comment.create({
     comment: req.body.comment
