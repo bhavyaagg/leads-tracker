@@ -27,6 +27,8 @@ describe("/api", function () {
   importTest("/", './api/index.js');
   importTest("/courses", './api/courses.js')
   importTest("/users", './api/users.js')
+  importTest("/leads", './api/leads.js')
+  importTest("/centres", "./api/centres");
   after(function () {
     console.info("All API tests have run");
   });
