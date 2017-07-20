@@ -129,7 +129,7 @@ router.put('/:id', function (req, res) {
 
 // delete any user
 router.delete('/:id', function (req, res) {
-  models.Tutor.destroy({
+  models.User.destroy({
     where: {id: parseInt(req.params.id)},
     returning: true
   }).then(function (noOfUsersDeleted) {
