@@ -66,12 +66,12 @@ User.hasMany(Comment);
 
 const Centre = db.define('centre', {
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true}
-    , name: {type: Sequelize.STRING, allowNull: false}
+    , name: {type: Sequelize.STRING, allowNull: false, unique: true}
 });
 
 const Course = db.define('course', {
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true}
-    , name: {type: Sequelize.STRING, allowNull: false}
+    , name: {type: Sequelize.STRING, allowNull: false, unique: true}
 });
 
 const models = {
@@ -83,4 +83,4 @@ const models = {
 };
 
 export default db;
-export { models }
+export {models}

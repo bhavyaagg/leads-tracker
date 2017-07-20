@@ -14,7 +14,6 @@ it("Status code is 404", (done) => {
 
   api.get('/').end((err, res) => {
     res.statusCode.should.equal(404)
-    res.should.be.html
     res.text.should.contain('Cannot GET /api/')
     done()
   })
