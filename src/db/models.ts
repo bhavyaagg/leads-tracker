@@ -51,7 +51,7 @@ const Lead = db.define('lead', {
      , name: Sequelize.STRING
      }
      */
-    , status: Sequelize.STRING
+    , status: {type: Sequelize.DataTypes.ENUM('New','Interested','Uninterested','Enrolled','Untracked'), allowNull: false, defaultValue:'New'}
 });
 
 const Comment = db.define('comment', {
