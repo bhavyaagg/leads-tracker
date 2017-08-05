@@ -1,6 +1,6 @@
 node_modules/
 .idea/
-/secrets.json
+secrets.json
 /coverage
 /dist/*
 !/dist/
