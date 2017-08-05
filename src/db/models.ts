@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+import Sequelize = require('sequelize');
 
 var secrets;
 try {
@@ -51,8 +51,15 @@ const Lead = db.define('lead', {
      , name: Sequelize.STRING
      }
      */
-    , status: {type: Sequelize.DataTypes.ENUM('New','Interested','Uninterested','Enrolled','Untracked'), allowNull: false, defaultValue:'New'}
+    , status: {type: Sequelize.ENUM('New','Interested','Uninterested','Enrolled','Untracked'), allowNull: false, defaultValue:'New'}
 });
+
+const OneAuth = db.define('authtoken',{
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    oneauthId: Sequelize.INTEGER,
+    oneauthToken: Sequelize.STRING,
+    token: Sequelize.STRING
+})
 
 const Comment = db.define('comment', {
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true}
@@ -80,6 +87,7 @@ const models = {
     , Comment: Comment
     , Centre: Centre
     , Course: Course
+    , Oneauth: OneAuth
 };
 
 export default db;
