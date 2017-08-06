@@ -51,7 +51,7 @@ router.post('/', function (req, res) {
             models.Oneauth.create({
               user: {
                 name: user.data.firstname + " " + user.data.lastname,
-                email: user.data.email,
+                email: user.data.email
               }
               , oneauthToken: authtoken.data.access_token
               , token: uid(30)
