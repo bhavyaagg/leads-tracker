@@ -10,6 +10,7 @@ app.use(bp.json());
 app.use(bp.urlencoded({extended: true}));
 
 app.use('/api', apirouters);
+app.use('/',express.static(__dirname+'./../public_html'));
 
 export {
     db, app

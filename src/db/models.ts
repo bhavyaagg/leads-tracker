@@ -59,7 +59,10 @@ const OneAuth = db.define('authtoken',{
     oneauthId: Sequelize.INTEGER,
     oneauthToken: Sequelize.STRING,
     token: Sequelize.STRING
-})
+});
+
+OneAuth.belongsTo(User);
+User.hasMany(OneAuth);
 
 const Comment = db.define('comment', {
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true}
