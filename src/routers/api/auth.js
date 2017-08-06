@@ -5,6 +5,8 @@
 const router = require('express').Router();
 const models = require('../../db/models').models;
 const axios = require('axios');
+const uid = require('uid2');
+
 var secrets;
 try {
   secrets = require('./../../../secrets.json')
@@ -24,17 +26,16 @@ router.post('/', function (req, res) {
   console.log(secrets.GRANT_TYPE);
   axios.post('https://account.codingblocks.com/oauth/token',
     {
-      "client_id" : secrets.CLIENT_IDI,
-      "redirect_uri" : secrets.REDIRECT_URI,
-      "client_secret" : secrets.CLIENT_SECRET,
-      "grant_type" : secrets.GRANT_TYPE,
-      "code"  : req.body.code
+      "client_id": secrets.CLIENT_ID,
+      "redirect_uri": secrets.REDIRECT_URI,
+      "client_secret": secrets.CLIENT_SECRET,
+      "grant_type": secrets.GRANT_TYPE,
+      "code": req.body.code
     })
     .then(function (authtoken) {
-      console.log("2")
       models.Oneauth.findOne({
         where: {
-          oneauthToken: authtoken.access_token
+          oneauthToken: authtoken.data.access_token
         }
       }).then(function (oneauth) {
         if (oneauth !== null) {
@@ -45,45 +46,44 @@ router.post('/', function (req, res) {
         }
         else {
           axios.get('https://account.codingblocks.com/api/users/me', {
-            headers: {'Authorization': `Bearer ${authtoken.access_token}`}
+            headers: {'Authorization': `Bearer ${authtoken.data.access_token}`}
           }).then(function (user) {
-            console.log(user);
+            models.Oneauth.create({
+              user: {
+                name: user.data.firstname + " " + user.data.lastname,
+                email: user.data.email,
+              }
+              , oneauthToken: authtoken.data.access_token
+              , token: uid(30)
+            },{
+              include: [models.User]
+            }).then(function (oneauthFinal) {
+              res.status(201).send({
+                success: true,
+                token: oneauthFinal.token
+              })
+            }).catch(function (err) {
+              console.log(err);
+              res.status(500).send({
+                success: false
+                , code: "500"
+                , error: {
+                  message: "Could not create in Oneauth Table(Internal Server Error)."
+                }
+              })
+            })
           }).catch(function (err) {
             console.log(err);
             res.status(500).send({
               success: false
               , code: "500"
               , error: {
-                message: "Could not find in Oneauth(Internal Server Error)."
+                message: "Could not get details from Oneauth API(Internal Server Error)."
               }
             })
           })
           //
-          // models.Oneauth.create({
-          //   user: {
-          //     name: req.body.name,
-          //     email: req.body.email,
-          //     contact: req.body.contact,
-          //     designation: req.body.designation,
-          //     centre: req.body.centre
-          //   }
-          //   , oneauthToken: oneauth.access_token
-          //   , token: uid(30)
-          // }).then(function (oneauthFinal) {
-          //   res.status(201).send({
-          //     success: true,
-          //     token: oneauthFinal.token
-          //   })
-          // }).catch(function (err) {
-          //   console.log(err);
-          //   res.status(500).send({
-          //     success: false
-          //     , code: "500"
-          //     , error: {
-          //       message: "Could not add to Oneauth(Internal Server Error)."
-          //     }
-          //   })
-          // })
+          //
         }
       }).catch(function (err) {
         console.log(err);
@@ -101,7 +101,7 @@ router.post('/', function (req, res) {
       success: false
       , code: "500"
       , error: {
-        message: "Could not find in Oneauth(Internal Server Error)."
+        message: "Could not post data to Oneauth API(Internal Server Error)."
       }
     })
   })
