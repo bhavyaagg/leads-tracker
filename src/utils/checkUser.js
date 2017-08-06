@@ -12,7 +12,7 @@ module.exports = function () {
       }
     }).then(function (oneauth) {
       if (oneauth !== null) {
-        next();
+        return next();
       } else {
         res.status(401).send({
           success: false,

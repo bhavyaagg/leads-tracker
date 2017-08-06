@@ -9,7 +9,7 @@ const uid = require('uid2');
 
 var secrets;
 try {
-  secrets = require('./../../../secrets.json')
+  secrets = require('./../../../secrets.json');
 } catch (e) {
   console.error('Create your own secrets file lazybones');
   secrets = require('./../../../secret-sample.json');
