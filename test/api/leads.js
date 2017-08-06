@@ -13,7 +13,7 @@ const api = chai.request("http://localhost:8000/api/leads")
 
 it("POST /add should add a lead(Correct Details)", (done) => {
   api.post('/add').send({
-    name: 'Bhavya Aggarwal'
+      name: 'Bhavya Aggarwal'
     , email: 'bhavya.spv@gmail.com'
     , contact: '9899175630'
   }).end((e, r) => {
