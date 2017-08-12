@@ -51,7 +51,7 @@ const Lead = db.define('lead', {
    , name: Sequelize.STRING
    }
    */
-  , status: {type: Sequelize.ENUM('New','Interested','Uninterested','Enrolled','Untracked'), allowNull: false, defaultValue:'New'}
+  , status: {type: Sequelize.ENUM('new','interested','uninterested','enrolled','untracked'), allowNull: false, defaultValue:'new'}
 });
 
 const OneAuth = db.define('authtoken',{

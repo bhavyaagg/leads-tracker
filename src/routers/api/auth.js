@@ -15,15 +15,7 @@ try {
   secrets = require('./../../../secret-sample.json');
 }
 
-
 router.post('/', function (req, res) {
-  // TODO: Oneauth ID
-  // console.log(1)
-  console.log(req.body.code);
-  console.log(secrets.CLIENT_ID);
-  console.log(secrets.REDIRECT_URI)
-  console.log(secrets.CLIENT_SECRET);
-  console.log(secrets.GRANT_TYPE);
   axios.post('https://account.codingblocks.com/oauth/token',
     {
       "client_id": secrets.CLIENT_ID,
