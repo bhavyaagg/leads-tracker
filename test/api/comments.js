@@ -38,7 +38,7 @@ it("POST /add should add a Comment", (done) => {
         done();
       });
     });
-  })
+  });
 });
 
 
@@ -48,7 +48,7 @@ it("POST /add should fetch error", (done) => {
     r.body.success.should.equal(false);
     r.body.error.message.should.equal("Could not add the Comment(Incorrect Details).");
     done();
-  })
+  });
 });
 
 
@@ -58,15 +58,15 @@ it(`GET /${testLeadId} should fetch comments for the Lead`, (done) => {
     r.body.success.should.equal(true);
     r.body.data[0].comment.should.equal("Hello");
     done();
-  })
+  });
 });
 
 it("DELETE /2 should delete user with id 2", (done) => {
   api.delete("/comments/2").end((e, r) => {
     r.statusCode.should.equal(200);
     r.body.success.should.equal(true);
-    done()
-  })
+    done();
+  });
 });
 
 it("DELETE /2 should fetch error", (done) => {
@@ -75,7 +75,7 @@ it("DELETE /2 should fetch error", (done) => {
     r.body.success.should.equal(false);
     r.body.error.message.should.be.a("string");
     done();
-  })
+  });
 });
 
 it("GET /2 should fetch error", (done) => {
@@ -84,5 +84,5 @@ it("GET /2 should fetch error", (done) => {
     r.body.success.should.equal(false);
     r.body.error.message.should.be.a("string");
     done();
-  })
+  });
 });
