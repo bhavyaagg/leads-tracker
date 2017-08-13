@@ -51,8 +51,18 @@ const Lead = db.define('lead', {
    , name: Sequelize.STRING
    }
    */
-  , status: Sequelize.STRING
+  , status: {type: Sequelize.ENUM('new','interested','uninterested','enrolled','untracked'), allowNull: false, defaultValue:'new'}
 });
+
+const OneAuth = db.define('authtoken',{
+    id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
+    oneauthId: Sequelize.INTEGER,
+    oneauthToken: Sequelize.STRING,
+    token: Sequelize.STRING
+});
+
+OneAuth.belongsTo(User);
+User.hasMany(OneAuth);
 
 const Comment = db.define('comment', {
   id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true}
@@ -75,11 +85,12 @@ const Course = db.define('course', {
 });
 
 const models = {
-  User
-  , Lead
-  , Comment
-  , Centre
-  , Course
+    User: User
+    , Lead: Lead
+    , Comment: Comment
+    , Centre: Centre
+    , Course: Course
+    , Oneauth: OneAuth
 };
 
 export default db;
