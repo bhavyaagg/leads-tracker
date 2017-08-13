@@ -2,9 +2,9 @@
  * Created by apoorvaa_gupta on 23/7/17.
  */
 
-const mocha = require('mocha')
-  , chai = require('chai')
-  , chaiHttp = require('chai-http')
+const mocha = require("mocha")
+  , chai = require("chai")
+  , chaiHttp = require("chai-http")
   , expect = chai.expect
   , should = chai.should();
 
@@ -37,7 +37,7 @@ it("POST /add should add a Comment", (done) => {
         r.body.data.comment.should.equal("Hello");
         done();
       });
-    })
+    });
   })
 });
 
@@ -47,7 +47,7 @@ it("POST /add should fetch error", (done) => {
     r.statusCode.should.equal(400);
     r.body.success.should.equal(false);
     r.body.error.message.should.equal("Could not add the Comment(Incorrect Details).");
-    done()
+    done();
   })
 });
 
