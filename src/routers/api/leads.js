@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const models = require('../../db/models').models;
-// get all the leads
+/**
+ * @api {get} /leads/ GET /leads/
+ *
+ */
 router.get('/', function (req, res) {
   models.Lead.findAll().then(function (leads) {
     if (leads.length !== 0) {

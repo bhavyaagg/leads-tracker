@@ -23,7 +23,9 @@
     ]
   },
   "apidoc": {
-    "title": "CB Leads Tracker"
+    "title": "CB Leads Tracker",
+    "url": "https://cb-leadtracker.herokuapp.com/api",
+    "sampleUrl": "https://cb-leadtracker.herokuapp.com/api"
   },
   "author": "",
   "license": "ISC",
