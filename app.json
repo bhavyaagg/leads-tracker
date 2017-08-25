@@ -1,0 +1,4 @@
+{
+  "name": "CB CRM Backend",
+  "addons": ["heroku-postgresql:hobby-dev"]
+}
