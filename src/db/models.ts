@@ -50,7 +50,8 @@ const OneAuth = db.define('authtoken',{
     id: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
     oneauthId: Sequelize.INTEGER,
     oneauthToken: Sequelize.STRING,
-    token: Sequelize.STRING
+    token: Sequelize.STRING,
+    role: Sequelize.STRING
 });
 
 OneAuth.belongsTo(User);
