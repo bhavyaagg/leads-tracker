@@ -2,6 +2,8 @@ const router = require('express').Router();
 const models = require('../../db/models').models;
 /**
  * @api {get} /leads/ GET /leads/
+ * @apiName GetLeads
+ * @apiGroup Leads
  *
  */
 router.get('/', function (req, res) {
