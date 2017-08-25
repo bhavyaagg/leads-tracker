@@ -15,6 +15,14 @@ try {
   secrets = require('./../../../secret-sample.json');
 }
 
+/**
+ *
+ * @api {post} /auth/ POST /auth/
+ * @apiName PostAuth
+ * @apiGroup Auth
+ *
+ * @apiParam {string} code The request code we get from 1st part of explicit Oauth2
+ */
 router.post('/', function (req, res) {
   axios.post('https://account.codingblocks.com/oauth/token',
     {
