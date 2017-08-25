@@ -22,6 +22,15 @@ try {
  * @apiGroup Auth
  *
  * @apiParam {string} code The request code we get from 1st part of explicit Oauth2
+ *
+ * @apiErrorExample {json} ErrorResponse
+ *      {
+ *        "success": false,
+ *        "code": "500",
+ *        "error": {
+ *            "message": "Could not post data to Oneauth API(Internal Server Error)."
+ *        }
+ *      }
  */
 router.post('/', function (req, res) {
   axios.post('https://account.codingblocks.com/oauth/token',
