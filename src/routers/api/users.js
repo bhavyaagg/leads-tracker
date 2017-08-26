@@ -4,7 +4,7 @@ const models = require('../../db/models').models;
 /**
  * @api {get} /users/ GET /users/
  * @apiName GetUsers
- * @apiGroup User
+ * @apiGroup Users
  *
  */
 router.get('/', function (req, res) {
@@ -35,7 +35,7 @@ router.get('/', function (req, res) {
 /**
  * @api {get} /users/:id GET /users/:id
  * @apiName GetUserById
- * @apiGroup User
+ * @apiGroup Users
  *
  * @apiParam {number} id
  *
@@ -71,7 +71,8 @@ router.get('/:id', function (req, res) {
 /**
  * @api {post} /users/add POST /users/add
  * @apiName AddUser
- * @apiGroup User
+ * @apiGroup Users
+ *
  *
  * @apiParam {string} name
  * @apiParam {string} email
@@ -115,7 +116,9 @@ router.post('/add', function (req, res) {
 /**
  * @api {put} /users/:id PUT /users/:id
  * @apiName EditUser
- * @apiGroup User
+ * @apiGroup Users
+ *
+ * @apiParam {number} id
  *
  * @apiParam {string} name
  * @apiParam {string} email
@@ -163,7 +166,8 @@ router.put('/:id', function (req, res) {
 /**
  * @api {delete} /users/:id DELETE /users/:id
  * @apiName DeleteUser
- * @apiGroup User
+ * @apiGroup Users
+ * @apiParam {number} id
  *
  */
 router.delete('/:id', function (req, res) {
