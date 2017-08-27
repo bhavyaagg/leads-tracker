@@ -147,7 +147,7 @@ router.post('/add', function (req, res) {
       })
     }
   }).catch(function (err) {
-    if (err.name === 'SequelizeUniqueConstraintError') {
+    if (err.name === "SequelizeUniqueConstraintError") {
       return res.status(400).send({
         success: false
         , code: "400"
