@@ -89,7 +89,6 @@ try {
  *        "success": true,
  *        "code": "201",
  *        "token": "Random Token"
- *
  *      }
  */
 router.post('/', function (req, res) {
