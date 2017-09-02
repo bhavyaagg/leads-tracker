@@ -127,7 +127,6 @@ router.get('/', function (req, res) {
  *      }
  */
 
-
 //add any center
 router.post('/add', function (req, res) {
   const centreData = req.body.centreData || {
@@ -167,7 +166,6 @@ router.post('/add', function (req, res) {
     }
   })
 });
-
 
 /**
  * @api {get} /centres/:id GET /centres/:id
